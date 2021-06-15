@@ -1,0 +1,5 @@
+# depslib dependency file v1.0
+1623705819 source:c:\users\pc\desktop\mastering data structures & algorithms using c and c++\1.- recursion\practice\10.- print natural numbers in reverse order\main.c
+	<stdio.h>
+	<stdlib.h>
+
