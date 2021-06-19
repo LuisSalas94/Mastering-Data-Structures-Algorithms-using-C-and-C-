@@ -161,10 +161,89 @@ int RBinSearch(int a[], int low, int height, int key)
     return -1;
 }
 
+//get function
+int getFun(struct Array arr, int index)
+{
+    if(index >= 0 && index < arr.length)
+    {
+        return arr.A[index];
+    }
+
+}
+
+//set function
+int setFun(struct Array *arr, int index, int x)
+{
+    if(index >= 0 && index < arr->length)
+    {
+        arr->A[index] = x;
+    }
+    return x;
+}
+
+//max function
+int maxFun(struct Array arr)
+{
+    int max = arr.A[0];
+    for(int i = 1; i<arr.length; i++)
+    {
+        if(arr.A[i] > max)
+        {
+            max = arr.A[i];
+        }
+    }
+
+    return max;
+}
+
+//min function
+int minFun(struct Array arr)
+{
+    int min = arr.A[0];
+    for(int i = 1; i<arr.length; i++)
+    {
+        if(arr.A[i] < min)
+        {
+            min = arr.A[i];
+        }
+    }
+
+    return min;
+}
+
+
+//sum function
+int sumFun(struct Array arr)
+{
+    int total = 0;
+
+    for(int i = 0; i<arr.length; i++)
+    {
+        total = total + arr.A[i];
+
+    }
+
+    return total;
+}
+
+//avg function
+int avgFun(struct Array arr)
+{
+    int total = 0;
+    int n = arr.length;
+
+    for(int i = 0; i<arr.length; i++)
+    {
+        total+=arr.A[i];
+    }
+
+    return total = total / n;
+}
+
 int main()
 {
     //hardcore an array
-    struct Array arr = {{2,3,4,5,6},10,5};
+    struct Array arr = {{22,23,4,15,6},20,5};
     /*int n;
     printf("Enter size of array: ");
     scanf("%d", &arr.size);
@@ -189,10 +268,20 @@ int main()
     printf("key found at index: %d\n", ImprovedLinearSearch(&arr, 5));
     printf("key found at index: %d\n", LinearSearch(arr, 6));
     printf("Key found at index: %d\n", BinarySearch(arr, 4));
+    printf("Key found at index: %d\n", RBinSearch(arr.A, 0, arr.length, 5));
+    printf("Element is %d", getFun(arr, 2));
+    printf("Element is: %d", setFun(&arr, 0, 27));
+    printf("Max. element is: %d", maxFun(arr));
+    printf("Min. element is: %d", minFun(arr));
+    printf("Sum of the elements is: %d", sumFun(arr));
     */
 
-    printf("Key found at index: %d\n", RBinSearch(arr.A, 0, arr.length, 5));
-    Display(arr);
+    printf("Average of the array is: %d", avgFun(arr));
+
+
+
+
+    //Display(arr);
 
     return 0;
 }
