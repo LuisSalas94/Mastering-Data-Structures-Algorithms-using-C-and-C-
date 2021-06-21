@@ -1,0 +1,5 @@
+# depslib dependency file v1.0
+1624279386 source:c:\users\pc\desktop\mastering data structures & algorithms using c and c++\4.- strings\3.- count numbers of vowels and consonents\main.c
+	<stdio.h>
+	<stdlib.h>
+
