@@ -240,10 +240,259 @@ int avgFun(struct Array arr)
     return total = total / n;
 }
 
+
+//reverse array function, using aux. array
+void reverFun(struct Array *arr)
+{
+    int *B;
+    int i, j;
+
+    B = (int*)malloc(arr->length*sizeof(int));
+    for(i = arr->length-1, j = 0; i>=0; i--, j++)
+    {
+        B[j] = arr->A[i];
+    }
+
+    for(i = 0; i<arr->length; i++)
+    {
+        arr->A[i] = B[i];
+    }
+}
+
+
+
+//reverse array function, using swap fun
+void reverFun2(struct Array *arr)
+{
+    int i, j;
+    for(i = 0, j= arr->length-1; i<j; i++, j--)
+    {
+        swap(&arr->A[i], &arr->A[j]);
+    }
+}
+
+
+//insert an element in a sorted position
+void insertFun(struct Array *arr, int x)
+{
+    int i = arr->length-1;
+    if(arr->length == arr->size)
+    {
+        return;
+    }
+
+    while(i >= 0 && arr->A[i] > x)
+    {
+        arr->A[i+1] = arr->A[i];
+        i--;
+    }
+
+    arr->A[i+1] = x;
+    arr->length++;
+}
+
+
+//check is array is sorted funtion
+int isSorted(struct Array arr)
+{
+    for(int i = 0; i<arr.length-1; i++)
+    {
+        if(arr.A[i] > arr.A[i+1])
+        {
+            return 0;
+        }
+    }
+    return 1;
+}
+
+
+//rearrange positive and negative elements from array
+void REarrange(struct Array *arr)
+{
+    int i = 0;
+    int j = arr->length-1;
+
+    while(i < j)
+    {
+        while(arr->A[i] < 0)
+        {
+            i++;
+        }
+
+        while(arr->A[j] >= 0)
+        {
+            j--;
+        }
+
+        if(i < j)
+        {
+            swap(&arr->A[i], &arr->A[j]);
+        }
+    }
+}
+
+//merge two arrays function
+struct Array* Merge(struct Array *arr1, struct Array *arr2)
+{
+    int i, j, k;
+    i = j = k = 0;
+    //create third array in heap
+    struct Array *arr3 = (struct Array*)malloc(sizeof(struct Array));
+
+    //copy all the elements by comparing one by one
+    while(i < arr1->length && j < arr2->length)
+    {
+        if(arr1->A[i] < arr2->A[j])
+        {
+            arr3->A[k++] = arr1->A[i++];
+        }
+        else
+        {
+            arr3->A[k++] = arr2->A[j++];
+        }
+    }
+
+    //copy remaining elements from the arrays
+    for(; i < arr1->length; i++)
+    {
+        arr3->A[k++] = arr1->A[i];
+    }
+
+    for(; j < arr2->length; j++)
+    {
+        arr3->A[k++] = arr2->A[j];
+    }
+
+    //increment arr3 length
+    arr3->length = arr1->length + arr2->length;
+    arr3->size = 10;
+
+    return arr3;
+
+}
+
+
+//union two arrays function
+struct Array* Union(struct Array *arr1, struct Array *arr2)
+{
+    int i, j, k;
+    i = j = k = 0;
+    //create third array in heap
+    struct Array *arr3 = (struct Array*)malloc(sizeof(struct Array));
+
+    //copy all the elements by comparing one by one
+    while(i < arr1->length && j < arr2->length)
+    {
+        if(arr1->A[i] < arr2->A[j])
+        {
+            arr3->A[k++] = arr1->A[i++];
+        }
+        else if(arr2->A[j] < arr1->A[i])
+        {
+            arr3->A[k++] = arr2->A[j++];
+        }
+        else
+        {
+            arr3->A[k++] = arr1->A[i++];
+            j++;
+        }
+    }
+
+    //copy remaining elements from the arrays
+    for(; i < arr1->length; i++)
+    {
+        arr3->A[k++] = arr1->A[i];
+    }
+
+    for(; j < arr2->length; j++)
+    {
+        arr3->A[k++] = arr2->A[j];
+    }
+
+    //increment arr3 length
+    arr3->length = k;
+    arr3->size = 10;
+
+    return arr3;
+}
+
+//intersection two arrays function
+struct Array* Intersection(struct Array *arr1, struct Array *arr2)
+{
+    int i, j, k;
+    i = j = k = 0;
+    //create third array in heap
+    struct Array *arr3 = (struct Array*)malloc(sizeof(struct Array));
+
+    //copy all the elements by comparing one by one
+    while(i < arr1->length && j < arr2->length)
+    {
+        if(arr1->A[i] < arr2->A[j])
+        {
+            i++;
+        }
+        else if(arr2->A[j] < arr1->A[i])
+        {
+            j++;
+        }
+        else if(arr1->A[i] == arr2->A[j])
+        {
+            arr3->A[k++] = arr1->A[i++];
+            j++;
+        }
+    }
+
+    //increment arr3 length
+    arr3->length = k;
+    arr3->size = 10;
+
+    return arr3;
+}
+
+
+//difference two arrays function
+struct Array* Difference(struct Array *arr1, struct Array *arr2)
+{
+    int i, j, k;
+    i = j = k = 0;
+    //create third array in heap
+    struct Array *arr3 = (struct Array*)malloc(sizeof(struct Array));
+
+    //copy all the elements by comparing one by one
+    while(i < arr1->length && j < arr2->length)
+    {
+        if(arr1->A[i] < arr2->A[j])
+        {
+            arr3->A[k++] = arr1->A[i++];
+        }
+        else if(arr2->A[j] < arr1->A[i])
+        {
+            j++;
+        }
+        else
+        {
+            i++;
+            j++;
+        }
+    }
+
+    //copy remaining elements from the arrays
+    for(; i < arr1->length; i++)
+    {
+        arr3->A[k++] = arr1->A[i];
+    }
+
+    //increment arr3 length
+    arr3->length = k;
+    arr3->size = 10;
+
+    return arr3;
+}
+
+
 int main()
 {
-    //hardcore an array
-    struct Array arr = {{22,23,4,15,6},20,5};
+    //struct Array arr = {{2,-3,25,10,-15, -7},20,6};
     /*int n;
     printf("Enter size of array: ");
     scanf("%d", &arr.size);
@@ -274,14 +523,46 @@ int main()
     printf("Max. element is: %d", maxFun(arr));
     printf("Min. element is: %d", minFun(arr));
     printf("Sum of the elements is: %d", sumFun(arr));
+    printf("Average of the array is: %d", avgFun(arr));
+    reverFun(&arr);
+    reverFun2(&arr);
+    insertFun(&arr, 24);
+    printf("%d", isSorted(arr));
+    REarrange(&arr);
     */
 
-    printf("Average of the array is: %d", avgFun(arr));
+    /*
+    MERGE FUNCTION
+    create new arrays for mergin function
+    struct Array arr1 = {{1,6,10,15,25},10,5};
+    struct Array arr2 = {{3,4,7,18,20},10,5};
+    struct Array *arr3;
+    arr3 = Merge(&arr1, &arr2);
+    */
+
+    /*
+    //UNION FUNCTION
+    struct Array arr1 = {{2,6,10,15,25},10,5};
+    struct Array arr2 = {{3,6,7,15,20},10,5};
+    struct Array *arr3;
+    arr3 = Union(&arr1, &arr2);
+    */
+
+    /*//INTERSECTION FUNCTION
+    struct Array arr1 = {{2,6,10,15,25},10,5};
+    struct Array arr2 = {{3,6,7,15,20},10,5};
+    struct Array *arr3;
+    arr3 = Intersection(&arr1, &arr2);
+    */
+
+    //DIFFERENCE FUNCTION
+    struct Array arr1 = {{2,6,10,15,25},10,5};
+    struct Array arr2 = {{3,6,7,15,20},10,5};
+    struct Array *arr3;
+    arr3 = Difference(&arr1, &arr2);
 
 
-
-
-    //Display(arr);
+    Display(*arr3);
 
     return 0;
 }
