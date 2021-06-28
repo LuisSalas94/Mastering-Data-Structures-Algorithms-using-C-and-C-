@@ -152,7 +152,7 @@ int main()
     //printf("Key was found at index: %d", ImprovedLinearSearch(&arr, 3));
 
     //binarySearch function
-    printf("Element found at index: %d", binarySearch(arr, 5));
+    printf("Element found at index: %d", binarySearch(arr, 2));
 
     //display function
     //display(arr);

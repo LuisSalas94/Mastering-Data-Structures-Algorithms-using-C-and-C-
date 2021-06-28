@@ -8,6 +8,8 @@ struct Node
 };
 
 struct Node *first = NULL;
+struct Node *second = NULL;
+struct Node *third = NULL;
 
 //creation of linked list
 void create(int A[], int n)
@@ -28,6 +30,28 @@ void create(int A[], int n)
         last = t;
     }
 }
+
+//creating 2 linked list
+void create2(int A[], int n)
+{
+    int i;
+    struct Node *t, *last;
+    second = (struct Node *)malloc(sizeof(struct Node));
+    second->data = A[0];
+    second->next = NULL;
+    last = second;
+
+    for(i = 1; i<n; i++)
+    {
+        t = (struct Node*)malloc(sizeof(struct Node));
+        t->data = A[i];
+        t->next = NULL;
+        last->next = t;
+        last = t;
+    }
+}
+
+
 
 //display function
 void Display(struct Node *p)
@@ -194,7 +218,7 @@ void Insert(struct Node *p, int index, int x)
     t->data = x;
 
     //link new node in linked list
-    //if index is less than cero, it should be in the left hand site
+    //if index is less than zero, it should be in the left hand site
     if(index == 0)
     {
         t->next = first;
@@ -328,13 +352,131 @@ void RemoveDuplicate(struct Node *p)
 
 }
 
+//reversing link
+void Reverse1(struct Node *p)
+{
+    int *A, i = 0;
+    struct Node *q = p;
+
+    A = (int*)malloc(sizeof(int)*count(p));
+
+    while(q!=NULL)
+    {
+        A[i] = q->data;
+        q = q->next;
+        i++;
+    }
+
+    q = p;
+    i--;
+
+    while(q!=NULL)
+    {
+        q->data = A[i];
+        q = q->next;
+        i--;
+    }
+
+}
+
+
+//reverse link using sliding pointers
+void Reverse2(struct Node *p)
+{
+    struct Node *q = NULL, *r = NULL;
+
+    while(p != NULL)
+    {
+        r = q;
+        q = p;
+        p = p->next;
+        q->next = r;
+    }
+
+    first = q;
+}
+
+
+//reverse using recursion
+void Reverse3(struct Node *q, struct Node *p)
+{
+    if(p)
+    {
+        Reverse3(p, p->next);
+        p->next = q;
+    }
+    else
+    {
+        first = q;
+    }
+}
+
+
+//concatenate two linked list
+void Concat(struct Node *p, struct Node *q)
+{
+    third = p;
+
+    while(p->next != NULL)
+    {
+        p = p->next;
+    }
+
+    p->next = q;
+}
+
+//merge two linked list
+void Merge(struct Node *p, struct Node *q)
+{
+    struct Node *last;
+
+    if(p->data < q->data)
+    {
+        third = last = p;
+        p = p->next;
+        third->next = NULL;
+    }
+    else
+    {
+        third = last = q;
+        q = q->next;
+        third->next = NULL;
+    }
+
+
+    while(p && q)
+    {
+        if(p->data < q->data)
+        {
+            last->next = p;
+            last = p;
+            p = p->next;
+            last->next = NULL;
+        }
+        else
+        {
+            last->next = q;
+            last = q;
+            q = q->next;
+            last->next = NULL;
+
+        }
+    }
+
+    if(p)last->next = p;
+    if(q)last->next = q;
+
+}
+
 
 
 int main()
 {
 
-    int A[] = {10, 20, 20, 20 ,30, 40, 50};
-    create(A, 7);
+    int A[] = {10, 20, 30, 40 ,50};
+    int B[] = {5, 15, 25, 35, 45};
+    create(A, 5);
+    create2(B, 5);
 
     //Display(first);
     //printf("Lenght is: %d", count(first));
@@ -346,6 +488,8 @@ int main()
     //SortedInsert(first, 35);
     //printf("Deleted Element %d\n", Delete(first, 4));
     //printf("%d\n", isSorted(first));
+    //RemoveDuplicate(first);
+    //Reverse3(NULL, first);
     /*
     struct Node *temp;
     temp = RLSearch(first, 15);
@@ -359,8 +503,17 @@ int main()
     }
     */
 
-    RemoveDuplicate(first);
-    Display(first);
+    /*
+    Concat(second, first);
+    printf("Concatinated\n");
+    Display(third);
+    printf("\n\n");
+    */
+
+    Merge(first, second);
+    Display(third);
+
+
 
     return 0;
 }
