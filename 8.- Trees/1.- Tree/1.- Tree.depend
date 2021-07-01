@@ -1,0 +1,12 @@
+# depslib dependency file v1.0
+1625095733 source:c:\users\pc\desktop\mastering data structures & algorithms using c and c++\8.- trees\1.- tree\main.c
+	<stdio.h>
+	<stdlib.h>
+	"Queve.h"
+	"Stacks.h"
+
+1625089347 c:\users\pc\desktop\mastering data structures & algorithms using c and c++\8.- trees\1.- tree\queve.h
+
+1625094660 c:\users\pc\desktop\mastering data structures & algorithms using c and c++\8.- trees\1.- tree\stacks.h
+	"Queve.h"
+
